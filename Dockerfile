@@ -1,6 +1,6 @@
 # Usa una imagen base de Python
 FROM python:3.10-slim
-WORKDIR /programas/my_project
+WORKDIR /programas/api-proyecto
 RUN pip install fastapi pydantic mysql-connector-python passlib python-jose uvicorn
 COPY . .
 EXPOSE 8000
