@@ -11,6 +11,10 @@ password_db = "utec"
 database_name = "your_database"
 schema_name = "citas_schema"
 
+@app.get("/")
+def health_check():
+    return {"status": "ok"}
+
 @app.get("/citas")
 def get_citas():
     mydb = mysql.connector.connect(host=host_name, port=port_number, user=user_name, password=password_db, database=database_name)
