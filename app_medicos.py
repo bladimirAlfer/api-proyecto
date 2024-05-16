@@ -11,6 +11,11 @@ password_db = "utec"
 database_name = "your_database"
 schema_name = "medicos_schema"
 
+
+@app.get("/")
+def health_check():
+    return {"status": "ok"}
+
 @app.get("/medicos")
 def get_medicos():
     mydb = mysql.connector.connect(host=host_name, port=port_number, user=user_name, password=password_db, database=database_name)
@@ -66,3 +71,5 @@ def delete_medico(id: int):
     mydb.commit()
     mydb.close()
     return {"message": "Medico deleted successfully"}
+
+
