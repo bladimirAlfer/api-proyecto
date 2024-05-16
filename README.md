@@ -2,8 +2,9 @@
 
 ## Dockerfiles
 
-### Dockerfile para API de Médicos
-```Dockerfile
+### Dockerfile y comandos
+```
+#Dockerfile para API de Medicos
 FROM python:3.10-slim
 WORKDIR /programas/api-medicos
 RUN pip install fastapi pydantic mysql-connector-python passlib python-jose uvicorn
@@ -11,12 +12,15 @@ COPY . .
 EXPOSE 8010
 CMD ["uvicorn", "app_registro:app", "--host", "0.0.0.0", "--port", "8010"]
 
+#Dockerfile para API de Citas
 FROM python:3.10-slim
 WORKDIR /programas/api-citas-medicas
 RUN pip install fastapi pydantic mysql-connector-python passlib python-jose uvicorn
 COPY . .
 EXPOSE 8011
 CMD ["uvicorn", "app_registro:app", "--host", "0.0.0.0", "--port", "8011"]
+
+#Dockerfile para API de Pacientes
 
 FROM python:3.10-slim
 WORKDIR /programas/api-pacientes
@@ -25,14 +29,31 @@ COPY . .
 EXPOSE 8012
 CMD ["uvicorn", "app_registro:app", "--host", "0.0.0.0", "--port", "8012"]
 
+#Entrar a Docker
 docker login -u bladimiralf
 
-#Etiquetado y subida de imágenes a Docker Hub
+#Construcción de imágenes
 
 docker build -t frontend .
 docker build -t api-medicos .
 docker build -t api-citas-medicas .
 docker build -t api-pacientes .
+
+
+#Etiquetado y subida de imágenes a Docker Hub
+
+docker tag frontend bladimiralf/frontend
+docker push bladimiralf/frontend
+
+docker tag api-medicos bladimiralf/api-medicos
+docker push bladimiralf/api-medicos
+
+docker tag api-citas-medicas bladimiralf/api-citas-medicas
+docker push bladimiralf/api-citas-medicas
+
+docker tag api-pacientes bladimiralf/api-pacientes
+docker push bladimiralf/api-pacientes
+
 
 #Ejecucion de contenedores
 
