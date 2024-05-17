@@ -4,21 +4,27 @@
 
 ### Dockerfile y comandos
 ```
+#correr el back
+uvicorn main:app --reload
+
+
 #Dockerfile para API de Medicos
+
 FROM python:3.10-slim
 WORKDIR /programas/api-medicos
 RUN pip install fastapi pydantic mysql-connector-python passlib python-jose uvicorn
 COPY . .
 EXPOSE 8010
-CMD ["uvicorn", "app_registro:app", "--host", "0.0.0.0", "--port", "8010"]
+CMD ["uvicorn", "app_medicos:app", "--host", "0.0.0.0", "--port", "8010"]
 
 #Dockerfile para API de Citas
+
 FROM python:3.10-slim
 WORKDIR /programas/api-citas-medicas
 RUN pip install fastapi pydantic mysql-connector-python passlib python-jose uvicorn
 COPY . .
 EXPOSE 8011
-CMD ["uvicorn", "app_registro:app", "--host", "0.0.0.0", "--port", "8011"]
+CMD ["uvicorn", "app_citas_medicas:app", "--host", "0.0.0.0", "--port", "8011"]
 
 #Dockerfile para API de Pacientes
 
@@ -27,7 +33,15 @@ WORKDIR /programas/api-pacientes
 RUN pip install fastapi pydantic mysql-connector-python passlib python-jose uvicorn
 COPY . .
 EXPOSE 8012
-CMD ["uvicorn", "app_registro:app", "--host", "0.0.0.0", "--port", "8012"]
+CMD ["uvicorn", "app_pacientes:app", "--host", "0.0.0.0", "--port", "8012"]
+
+#Dockerfile para Frontend
+
+FROM nginx:alpine
+COPY .  /usr/share/nginx/html
+EXPOSE 8000
+
+
 
 #Entrar a Docker
 docker login -u bladimiralf
