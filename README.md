@@ -4,7 +4,7 @@
 
 ### Dockerfile y comandos
 ```
-#correr el back
+#correr el back en localhost
 uvicorn main:app --reload
 
 
