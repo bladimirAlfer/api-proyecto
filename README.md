@@ -115,3 +115,12 @@ docker run -d --rm --name api-pacientes_c -p 8012:8012 bladimiralf/api-pacientes
 
 docker exec -it  304072ae540f /bin/sh
 cd usr/share/nginx/html
+
+cd usr/share/nginx/html
+
+#editar los js
+
+nano citas.js
+nano medicos.js
+nano pacientes.js
+
