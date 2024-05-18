@@ -110,3 +110,8 @@ docker run -d --rm --name frontend_c -p 8000:8000 bladimiralf/frontend
 docker run -d --rm --name api-medicos_c -p 8010:8010 bladimiralf/api-medicos
 docker run -d --rm --name api-citas-medicas_c -p 8011:8011 bladimiralf/api-citas-medicas
 docker run -d --rm --name api-pacientes_c -p 8012:8012 bladimiralf/api-pacientes
+
+#cambiar rutas del front en contenedor de MV1 y MV2 :
+
+docker exec -it  304072ae540f /bin/sh
+cd usr/share/nginx/html
