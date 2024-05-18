@@ -10,8 +10,6 @@ uvicorn main:app --reload
 
 #Modificar nginx.conf
 
-
-#Dockerfile para API de Medicos
 docker exec -it frontend_c /bin/sh
 
 apk update
@@ -35,8 +33,10 @@ server {
 
     #error_page  404              /404.html;
 
+
 nginx -s reload
 
+#Dockerfile para API de Medicos
 
 FROM python:3.10-slim
 WORKDIR /programas/api-medicos
