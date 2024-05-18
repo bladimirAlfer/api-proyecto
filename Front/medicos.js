@@ -1,3 +1,5 @@
+const BASE_URL_MEDICOS = 'http://52.72.247.76:8010';
+
 document.addEventListener('DOMContentLoaded', function() {
     loadMedicos();
     document.getElementById('add-medico-form').addEventListener('submit', handleMedicoSubmit);
@@ -37,7 +39,7 @@ async function deleteData(url) {
 
 async function loadMedicos() {
     try {
-        const data = await fetchData('http://52.72.247.76:8010/medicos/');
+        const data = await fetchData(`${BASE_URL_MEDICOS}/medicos/`);
         const medicosTable = document.getElementById('medicos-list');
         medicosTable.innerHTML = '';  // Limpiar la tabla antes de agregar nuevos datos
         data.forEach(medico => {
@@ -68,7 +70,7 @@ async function handleMedicoSubmit(event) {
     const name = document.getElementById('medico-name').value;
     const specialty = document.getElementById('medico-specialty').value;
     const medicoId = document.getElementById('medico-id') ? document.getElementById('medico-id').value : null;
-    const url = medicoId ? `http://52.72.247.76:8010/medicos/${medicoId}` : 'http://52.72.247.76:8010/medicos/';
+    const url = medicoId ? `${BASE_URL_MEDICOS}/medicos/${medicoId}` : `${BASE_URL_MEDICOS}/medicos/`;
     const method = medicoId ? 'PUT' : 'POST';
     const data = { name, specialty };
 
@@ -81,7 +83,7 @@ async function handleMedicoSubmit(event) {
 }
 
 function editMedico(id) {
-    fetchData(`http://52.72.247.76:8010/medicos/${id}`)
+    fetchData(`${BASE_URL_MEDICOS}/medicos/${id}`)
         .then(medico => {
             if (!medico || medico.length === 0) {
                 throw new Error('No se pudo cargar la información del médico para editar.');
@@ -100,9 +102,9 @@ function editMedico(id) {
 
 async function deleteMedico(id) {
     try {
-        const response = await fetch(`http://52.72.247.76:8010/medicos/${id}`, { method: 'DELETE' });
+        const response = await fetch(`${BASE_URL_MEDICOS}/medicos/${id}`, { method: 'DELETE' });
         if (!response.ok) throw new Error('Failed to delete');
-        loadMedicos();  // Recargar la list a de médicos después de eliminar
+        loadMedicos();  // Recargar la lista de médicos después de eliminar
     } catch (error) {
         console.error('Error deleting medico:', error);
         alert("No se pudo eliminar el médico: " + error.message);
@@ -122,7 +124,7 @@ document.getElementById('edit-medico-form').addEventListener('submit', async fun
     const id = document.getElementById('edit-medico-id').value;
     const name = document.getElementById('edit-medico-name').value;
     const specialty = document.getElementById('edit-medico-specialty').value;
-    const url = `http://52.72.247.76:8010/medicos/${id}`;
+    const url = `${BASE_URL_MEDICOS}/medicos/${id}`;
     const data = { name, specialty };
 
     try {

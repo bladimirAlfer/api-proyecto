@@ -1,3 +1,5 @@
+const BASE_URL_PACIENTES = 'http://52.72.247.76:8012';
+
 document.addEventListener('DOMContentLoaded', function() {
     loadPacientes();
     document.getElementById('add-paciente-form').addEventListener('submit', handlePacienteSubmit);
@@ -37,7 +39,7 @@ async function deleteData(url) {
 
 async function loadPacientes() {
     try {
-        const data = await fetchData('http://52.72.247.76:8012/pacientes/');
+        const data = await fetchData(`${BASE_URL_PACIENTES}/pacientes/`);
         const pacientesTable = document.getElementById('pacientes-list');
         pacientesTable.innerHTML = '';  // Limpiar la tabla antes de agregar nuevos datos
         data.forEach(paciente => {
@@ -68,7 +70,7 @@ async function handlePacienteSubmit(event) {
     const name = document.getElementById('paciente-name').value;
     const age = document.getElementById('paciente-age').value;
     const pacienteId = document.getElementById('paciente-id') ? document.getElementById('paciente-id').value : null;
-    const url = pacienteId ? `http://52.72.247.76:8012/pacientes/${pacienteId}` : 'http://52.72.247.76:8012/pacientes/';
+    const url = pacienteId ? `${BASE_URL_PACIENTES}/pacientes/${pacienteId}` : `${BASE_URL_PACIENTES}/pacientes/`;
     const method = pacienteId ? 'PUT' : 'POST';
     const data = { name, age };
 
@@ -81,7 +83,7 @@ async function handlePacienteSubmit(event) {
 }
 
 function editPaciente(id) {
-    fetchData(`http://52.72.247.76:8012/pacientes/${id}`)
+    fetchData(`${BASE_URL_PACIENTES}/pacientes/${id}`)
         .then(paciente => {
             if (!paciente || paciente.length === 0) {
                 throw new Error('No se pudo cargar la información del paciente para editar.');
@@ -100,7 +102,7 @@ function editPaciente(id) {
 
 async function deletePaciente(id) {
     try {
-        const response = await fetch(`http://52.72.247.76:8012/pacientes/${id}`, { method: 'DELETE' });
+        const response = await fetch(`${BASE_URL_PACIENTES}/pacientes/${id}`, { method: 'DELETE' });
         if (!response.ok) throw new Error('Failed to delete');
         loadPacientes();  // Recargar la lista de pacientes después de eliminar
     } catch (error) {
@@ -122,7 +124,7 @@ document.getElementById('edit-paciente-form').addEventListener('submit', async f
     const id = document.getElementById('edit-paciente-id').value;
     const name = document.getElementById('edit-paciente-name').value;
     const age = document.getElementById('edit-paciente-age').value;
-    const url = `http://52.72.247.76:8012/pacientes/${id}`;
+    const url = `${BASE_URL_PACIENTES}/pacientes/${id}`;
     const data = { name, age };
 
     try {
