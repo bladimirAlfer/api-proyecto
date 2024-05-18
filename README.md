@@ -8,7 +8,35 @@
 uvicorn main:app --reload
 
 
+#Modificar nginx.conf
+
+
 #Dockerfile para API de Medicos
+docker exec -it frontend_c /bin/sh
+
+apk update
+apk add nano
+
+nano /etc/nginx/conf.d/default.conf
+
+#En  default.conf, cambiar el puerto del front:
+
+server {
+    listen       8000;
+    listen  [::]:8000;
+    server_name  localhost;
+
+    #access_log  /var/log/nginx/host.access.log  main;
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+    }
+
+    #error_page  404              /404.html;
+
+nginx -s reload
+
 
 FROM python:3.10-slim
 WORKDIR /programas/api-medicos
