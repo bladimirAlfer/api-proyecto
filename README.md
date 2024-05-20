@@ -7,6 +7,7 @@
 #correr el back en localhost
 uvicorn main:app --reload
 
+#Crear dos instancias. Una para el Front y otra para el Back
 
 #Modificar nginx.conf
 
@@ -114,38 +115,10 @@ docker tag api-pacientes bladimiralf/api-pacientes
 docker push bladimiralf/api-pacientes
 
 
-#Ejecucion de contenedores
+#Ejecucion de contenedores en MV Prod1 y MV Prod2
 
 docker run -d --rm --name frontend_c -p 8000:8000 bladimiralf/frontend
 docker run -d --rm --name api-medicos_c -p 8010:8010 bladimiralf/api-medicos
 docker run -d --rm --name api-citas-medicas_c -p 8011:8011 bladimiralf/api-citas-medicas
 docker run -d --rm --name api-pacientes_c -p 8012:8012 bladimiralf/api-pacientes
-
-#cambiar rutas del BACK en contenedor de MV1 y MV2 :
-
-docker exec -it  4a0e81483b87 /bin/sh    (CONTENEDOR DE UNA API, CAMBIAR PARA LAS 3 API)
-cd usr/share/nginx/html
-
-apk update
-apk add nano
-
-o
-
-apt-get update
-apt-get install nano
-
-
-
-#cambiar rutas del FRONT ont en contenedor de MV1 y MV2 :
-
-docker exec -it  304072ae540f /bin/sh
-cd usr/share/nginx/html
-
-cd usr/share/nginx/html
-
-#editar los js
-
-nano citas.js
-nano medicos.js
-nano pacientes.js
 
