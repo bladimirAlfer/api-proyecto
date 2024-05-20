@@ -1,0 +1,24 @@
+ version: "3.3"
+
+ services:
+   api-medicos:
+     build: ./api-medicos
+     image: bladimiralf/api-medicos
+     ports:
+       - 8010:8010
+   api-citas-medicas:
+     build: ./api-citas-medicas
+     image: bladimiralf/api-citas-medicas
+     ports:
+       - 8011:8011
+   api-pacientes:
+     build: ./api-pacientes
+     image: bladimiralf/api-pacientes
+     ports:
+       - 8012:8012
+   frontend:
+     build: ./frontend
+     image: bladimiralf/frontend
+     ports:
+       - 8000:8000
+    
