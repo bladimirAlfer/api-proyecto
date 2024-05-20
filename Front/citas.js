@@ -1,4 +1,4 @@
-const BASE_URL = 'http://52.72.247.76:8011';
+const BASE_URL = `${window.location.protocol}//${window.location.hostname}`;
 
 document.addEventListener('DOMContentLoaded', function() {
     loadCitas();
@@ -41,7 +41,7 @@ async function deleteData(url) {
 
 async function loadCitas() {
     try {
-        const data = await fetchData(`${BASE_URL}/citas/`);
+        const data = await fetchData(`${BASE_URL}:8011/citas/`);
         const citasTable = document.getElementById('citas-list');
         citasTable.innerHTML = '';  // Limpiar la tabla antes de agregar nuevos datos
         data.forEach(cita => {
@@ -70,7 +70,7 @@ async function loadCitas() {
 
 async function loadMedicos() {
     try {
-        const data = await fetchData(`${BASE_URL}/medicos/`);
+        const data = await fetchData(`${BASE_URL}:8010/medicos/`);
         const medicoSelect = document.getElementById('cita-medico');
         const editMedicoSelect = document.getElementById('edit-cita-medico');
         medicoSelect.innerHTML = '<option value="">Seleccione un médico</option>';
@@ -94,7 +94,7 @@ async function loadMedicos() {
 
 async function loadPacientes() {
     try {
-        const data = await fetchData(`${BASE_URL}/pacientes/`);
+        const data = await fetchData(`${BASE_URL}:8012/pacientes/`);
         const pacienteSelect = document.getElementById('cita-paciente');
         const editPacienteSelect = document.getElementById('edit-cita-paciente');
         pacienteSelect.innerHTML = '<option value="">Seleccione un paciente</option>';
@@ -122,7 +122,7 @@ async function handleCitaSubmit(event) {
     const paciente_id = document.getElementById('cita-paciente').value;
     const date = document.getElementById('cita-date').value;
     const citaId = document.getElementById('cita-id') ? document.getElementById('cita-id').value : null;
-    const url = citaId ? `${BASE_URL}/citas/${citaId}` : `${BASE_URL}/citas/`;
+    const url = citaId ? `${BASE_URL}:8011/citas/${citaId}` : `${BASE_URL}:8011/citas/`;
     const method = citaId ? 'PUT' : 'POST';
     const data = { medico_id, paciente_id, date };
 
@@ -135,7 +135,7 @@ async function handleCitaSubmit(event) {
 }
 
 function editCita(id) {
-    fetchData(`${BASE_URL}/citas/${id}`)
+    fetchData(`${BASE_URL}:8011/citas/${id}`)
         .then(cita => {
             if (!cita || cita.length === 0) {
                 throw new Error('No se pudo cargar la información de la cita para editar.');
@@ -155,7 +155,7 @@ function editCita(id) {
 
 async function deleteCita(id) {
     try {
-        const response = await fetch(`${BASE_URL}/citas/${id}`, { method: 'DELETE' });
+        const response = await fetch(`${BASE_URL}:8011/citas/${id}`, { method: 'DELETE' });
         if (!response.ok) throw new Error('Failed to delete');
         loadCitas();  // Recargar la lista de citas después de eliminar
     } catch (error) {
@@ -178,7 +178,7 @@ document.getElementById('edit-cita-form').addEventListener('submit', async funct
     const medico_id = document.getElementById('edit-cita-medico').value;
     const paciente_id = document.getElementById('edit-cita-paciente').value;
     const date = document.getElementById('edit-cita-date').value;
-    const url = `${BASE_URL}/citas/${id}`;
+    const url = `${BASE_URL}:8011/citas/${id}`;
     const data = { medico_id, paciente_id, date };
 
     try {
